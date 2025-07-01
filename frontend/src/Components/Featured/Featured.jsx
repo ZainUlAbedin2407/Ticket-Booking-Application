@@ -8,7 +8,6 @@ const Featured = () => {
           alt=""
           className="featuredImg"
         />
-
         <div className="featuredTitles">
           <h1>Dublin</h1>
           <h2>123 Properties</h2>
@@ -16,7 +15,7 @@ const Featured = () => {
       </div>
       <div className="featuredItem">
         <img
-          src="https://picsum.photos/seed/random1/1000"
+          src="https://picsum.photos/seed/random2/1000"
           alt=""
           className="featuredImg"
         />
@@ -28,7 +27,7 @@ const Featured = () => {
       </div>
       <div className="featuredItem">
         <img
-          src="https://picsum.photos/seed/random1/1000"
+          src="https://picsum.photos/seed/random3/1000"
           alt=""
           className="featuredImg"
         />

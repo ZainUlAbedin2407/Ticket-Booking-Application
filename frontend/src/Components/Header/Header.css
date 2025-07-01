@@ -81,6 +81,7 @@
   width: 100%;
   font-size: 16px;
   color: rgb(192, 187, 187);
+  background-color: transparent;
 }
 
 .headerSearchInput::placeholder {
@@ -163,62 +164,6 @@
   cursor: not-allowed;
 }
 
-/* @media (max-width: 768px) {
-  .options {
-    top: 40px;
-    right: 0;
-    left: auto;
-    min-width: 200px;
-  }
-
-  .optionItem {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .optionCounter {
-    margin-top: 5px;
-  }
-}
-
-@media (max-width: 768px) {
-  .headerSearch {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 5px;
-    gap: 5px;
-  }
-
-  .headerSearchItem {
-    justify-content: flex-start;
-  }
-
-  .headerList {
-    justify-content: center;
-    gap: 20px;
-  }
-
-  .headerTitle {
-    font-size: 20px;
-  }
-
-  .headerDesc {
-    font-size: 13px;
-  }
-
-  .headerBtn {
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  .date, .options {
-    left: 10px;
-    right: 10px;
-    width: auto;
-  }
-} */
-
-
 @media (max-width: 1023px) {
   .headerSearch {
     flex-wrap: wrap;
@@ -277,7 +222,8 @@
 
   .date,
   .options {
-    padding: 10px;
+    /* padding: 10px; */
+    left: 0;
   }
 
   .optionItem {
@@ -327,6 +273,30 @@
     width: 26px;
     height: 26px;
     font-size: 14px;
+  }
+
+  .date {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto;
+    box-sizing: border-box;
+  }
+
+  .rdrCalendarWrapper {
+    width: 100% !important;
+    font-size: 14px; /* Optional: slightly reduce text */
+  }
+
+  .rdrDateRangeWrapper {
+    flex-direction: column; /* Stack calendar if needed */
+  }
+
+  .rdrMonth {
+    width: 100% !important;
+  }
+
+  .rdrMonthAndYearWrapper {
+    justify-content: center;
   }
 }
 

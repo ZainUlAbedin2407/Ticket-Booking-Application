@@ -2,40 +2,63 @@
   width: 100%;
   max-width: 1024px;
   display: flex;
+  flex-wrap: wrap;
+  /* allow items to wrap */
   justify-content: space-between;
   gap: 20px;
   z-index: 1;
-  padding: 0px 20px;
 }
-
-/* .featuredItem {
-    position: relative;
-    color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    height: 250px;
-}
-
-.featuredImg {
-    width: 100%;
-    object-fit: cover;
-} */
 
 .featuredItem {
-  aspect-ratio: 16 / 9; /* or 4 / 3, depends on design */
+  position: relative;
+  flex: 1 1 calc(33.33% - 13.33px);
+  /* 3 items in a row with gap compensation */
+  min-width: 280px;
+  /* so that it breaks into new row on small screens */
+  height: 250px;
   border-radius: 10px;
   overflow: hidden;
-  position: relative;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
 }
+
+.featuredItem:hover .featuredImg {
+  transform: scale(1.05);
+}
+
 
 .featuredImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.featuredImg:hover {
+  transform: scale(1.05);
+  /* subtle zoom on hover */
 }
 
 .featuredTitles {
   position: absolute;
   bottom: 20px;
   left: 20px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+}
+
+/* 🔁 Responsive Breakpoints */
+@media (max-width: 900px) {
+  .featuredItem {
+    flex: 1 1 calc(50% - 10px);
+    /* 2 in a row */
+  }
+}
+
+@media (max-width: 600px) {
+  .featuredItem {
+    flex: 1 1 100%;
+    /* full width on small screens */
+  }
 }
