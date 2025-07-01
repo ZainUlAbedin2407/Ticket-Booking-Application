@@ -8,6 +8,7 @@
 }
 
 .homeTitle {
+    width: 100%;
     max-width: 1024px;
-    text-align: start;
+    text-align: left;
 }

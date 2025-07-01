@@ -22,7 +22,6 @@
 
 .navItems {
   display: flex;
-  gap: 10px;
 }
 
 .navButton {
@@ -36,6 +35,7 @@
 
 @media screen and (max-width: 350px) {
   .navItems {
+    gap: 5px;
     margin-left: 10px;
   }
   .navButton{
