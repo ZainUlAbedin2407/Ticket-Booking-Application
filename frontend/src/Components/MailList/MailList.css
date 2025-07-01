@@ -1,0 +1,99 @@
+.mail {
+  width: 100%;
+  margin-top: 50px;
+  background-color: #003580;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 50px 20px; /* Left/right padding reduced for small screens */
+  text-align: center;
+}
+
+.mailTitle {
+  font-size: 30px;
+}
+
+.mailDesc {
+  font-size: 16px;
+  max-width: 400px;
+}
+
+.mailInputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mailInputContainer > input {
+  width: 300px;
+  max-width: 100%;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+}
+
+.mailInputContainer > button {
+  width: 120px;
+  height: 40px;
+  border: none;
+  background-color: #0071c2;
+  color: white;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ✅ Tablet and down (max-width: 768px) */
+@media (max-width: 768px) {
+  .mail {
+    padding: 40px 20px;
+  }
+
+  .mailTitle {
+    font-size: 22px;
+  }
+
+  .mailDesc {
+    font-size: 15px;
+  }
+
+  .mailInputContainer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mailInputContainer > input,
+  .mailInputContainer > button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ✅ Mobile small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .mail {
+    padding: 30px 15px;
+  }
+
+  .mailTitle {
+    font-size: 20px;
+  }
+
+  .mailDesc {
+    font-size: 14px;
+  }
+
+  .mailInputContainer > input,
+  .mailInputContainer > button {
+    font-size: 15px;
+    height: 38px;
+  }
+}
