@@ -5,6 +5,10 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
+import SearchItem from "../../Components/SearchItem/SearchItem";
+import MailList from "../../Components/MailList/MailList";
+import Footer from "../../Components/Footer/Footer";
+import { FaFilter } from "react-icons/fa"; // menu icon
 
 const List = () => {
   const location = useLocation();
@@ -12,13 +16,25 @@ const List = () => {
   const [date, setDate] = useState(location.state.date);
   const [options, setOptions] = useState(location.state.options);
   const [openCalendar, setOpenCalendar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false); // NEW STATE
+
   return (
     <div>
       <Navbar />
       <Header type="list" />
       <div className="listContainer">
         <div className="listWrapper">
-          <div className="listSearch">
+
+          {/* 🎯 Toggle Button (Only shows on small screens) */}
+          <button className="sidebarToggleBtn" onClick={() => setShowSidebar(!showSidebar)}>
+            <FaFilter /> Filters
+          </button>
+
+          {/* 🟡 Sidebar (Conditional visibility on mobile) */}
+          <div className={`listSearch ${showSidebar ? "activeSidebar" : ""}`}>
+            {/* close button for mobile view */}
+            <div className="sidebarCloseBtn" onClick={() => setShowSidebar(false)}>×</div>
+
             <h1 className="lsTitle">Search</h1>
             <div className="lsItem">
               <label>Destination</label>
@@ -42,50 +58,42 @@ const List = () => {
               <label>Options</label>
               <div className="lsOptions">
                 <div className="lsOptionItem">
-                  <span className="lsOptionText">
-                    Min Price <small>(per night)</small>
-                  </span>
+                  <span className="lsOptionText">Min Price <small>(per night)</small></span>
                   <input type="number" className="lsOptionInput" />
                 </div>
                 <div className="lsOptionItem">
-                  <span className="lsOptionText">
-                    Max Price <small>(per night)</small>
-                  </span>
+                  <span className="lsOptionText">Max Price <small>(per night)</small></span>
                   <input type="number" className="lsOptionInput" />
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Adult</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="lsOptionInput"
-                    placeholder={options.adult}
-                  />
+                  <input type="number" min={1} className="lsOptionInput" placeholder={options.adult} />
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Children</span>
-                  <input
-                    type="number"
-                    min={0}
-                    className="lsOptionInput"
-                    placeholder={options.children}
-                  />
+                  <input type="number" min={0} className="lsOptionInput" placeholder={options.children} />
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Room</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="lsOptionInput"
-                    placeholder={options.room}
-                  />
+                  <input type="number" min={1} className="lsOptionInput" placeholder={options.room} />
                 </div>
               </div>
             </div>
+            <button>Search</button>
           </div>
-          <div className="listResult"></div>
+
+          <div className="listResult">
+            {/* 👇 Search results */}
+            <SearchItem />
+            <SearchItem />
+            <SearchItem />
+            <SearchItem />
+            <SearchItem />
+          </div>
         </div>
       </div>
+      <MailList />
+      <Footer />
     </div>
   );
 };

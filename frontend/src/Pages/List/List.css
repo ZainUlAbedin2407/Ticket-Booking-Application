@@ -112,3 +112,71 @@
 .listResult {
   flex: 3;
 }
+
+
+/* 👇 Sidebar toggle button (visible on small screens) */
+.sidebarToggleBtn {
+  display: none;
+  margin-bottom: 10px;
+  background-color: #0071c2;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/* Close (×) button inside sidebar */
+.sidebarCloseBtn {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  text-align: right;
+  color: #003580;
+  font-weight: bold;
+}
+
+/* 🔄 Responsive behavior */
+@media (max-width: 768px) {
+  .sidebarToggleBtn {
+    display: block;
+  }
+
+  .listWrapper {
+    flex-direction: column;
+  }
+
+  .listSearch {
+    display: none;
+    width: 100%;
+    position: relative;
+    z-index: 99;
+  }
+
+  .listSearch.activeSidebar {
+    display: block;
+    animation: slideIn 0.3s ease-in-out;
+  }
+
+  .sidebarCloseBtn {
+    display: block;
+  }
+
+  .listResult {
+    width: 100%;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
