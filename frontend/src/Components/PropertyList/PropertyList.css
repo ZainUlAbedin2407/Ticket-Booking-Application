@@ -36,6 +36,7 @@
 .pListTitles > h1 {
   font-size: 18px;
   margin: 5px 0 2px;
+  text-transform: capitalize;
 }
 
 .pListTitles > h2 {

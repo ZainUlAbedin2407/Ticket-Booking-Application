@@ -9,31 +9,22 @@ import {
   FaCircleXmark,
   FaLocationDot,
 } from "react-icons/fa6";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import useFetch from "../../hooks/useFetch";
+import { useLocation } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext";
 
 const Hotel = () => {
+  const location = useLocation();
+  const path = location.pathname;
+  const id = path.split("/")[2];
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
-  const photos = [
-    {
-      src: "https://picsum.photos/seed/random1/1000",
-    },
-    {
-      src: "https://picsum.photos/seed/random2/1000",
-    },
-    {
-      src: "https://picsum.photos/seed/random3/1000",
-    },
-    {
-      src: "https://picsum.photos/seed/random4/1000",
-    },
-    {
-      src: "https://picsum.photos/seed/random5/1000",
-    },
-    {
-      src: "https://picsum.photos/seed/random6/1000",
-    },
-  ];
+
+  const { data, loading, error } = useFetch(`/hotels/find/${id}`);
+
+  const { dates } = useContext(SearchContext);
+  console.log(dates);
 
   const handleOpen = (idx) => {
     setSlideNumber(idx);
@@ -63,7 +54,7 @@ const Hotel = () => {
             onClick={() => handleMove("l")}
           />
           <div className="sliderWrapper">
-            <img src={photos[slideNumber].src} alt="" className="sliderImg" />
+            <img src={data.photos[slideNumber]} alt="" className="sliderImg" />
           </div>
           <FaCircleArrowRight
             className="arrow"
@@ -72,58 +63,51 @@ const Hotel = () => {
         </div>
       )}
 
-      <div className="hotelContainer">
-        <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
-          <h1 className="hotelTitle">Grand Hotel</h1>
-          <div className="hotelAddress">
-            <FaLocationDot />
-            <span>Elton St 125 New York</span>
-          </div>
-          <span className="hotelDistance">
-            Excellent location - 500m from center
-          </span>
-          <span className="hotelPriceHightlight">
-            Book a stay over $114 at this property and get a free airport taxi
-          </span>
-          <div className="hotelImages">
-            {photos.map((photo, idx) => (
-              <div className="hotelImgWrapper">
-                <img onClick={() => handleOpen(idx)} src={photo.src} alt="" />
-              </div>
-            ))}
-          </div>
-          <div className="hotelDetails">
-            <div className="hotelDetailsTexts">
-              <h1 className="hotelTitle">Stay in the heart of Krakow</h1>
-              <p className="hotelDesc">
-                Located a 5-minute walk from St. Florian's Gate in Krakow, Tower
-                Street Apartments has accommodations with air conditioning and
-                free WiFi. The units come with hardwood floors and feature a
-                fully equipped kitchenette with a microwave, a flat-screen TV,
-                and a private bathroom with shower and a hairdryer. A fridge is
-                also offered, as well as an electric tea pot and a coffee
-                machine. Popular points of interest near the apartment include
-                Cloth Hall, Main Market Square and Town Hall Tower. The nearest
-                airport is John Paul II International Kraków–Balice, 16.1 km
-                from Tower Street Apartments, and the property offers a paid
-                airport shuttle service.
-              </p>
+      {loading ? (
+        "Loading..."
+      ) : (
+        <div className="hotelContainer">
+          <div className="hotelWrapper">
+            <button className="bookNow">Reserve or Book Now!</button>
+            <h1 className="hotelTitle">{data.name}</h1>
+            <div className="hotelAddress">
+              <FaLocationDot />
+              <span>{data.address}</span>
             </div>
-            <div className="hotelDetailsPrice">
-              <h1>Perfect for a 9-nightstay!</h1>
-              <span>
-                Located in the real heart of Krakow, this property has an
-                excellent location score of 9.8!
-              </span>
-              <h2>
-                <b>$945</b> (9 nights)
-              </h2>
-              <button>Reserve or Book Now!</button>
+            <span className="hotelDistance">
+              Excellent location - {data.distance}
+            </span>
+            <span className="hotelPriceHightlight">
+              Book a stay over ${data.cheapestPrice} at this property and get a
+              free airport taxi
+            </span>
+            <div className="hotelImages">
+              {data.photos?.map((photo, idx) => (
+                <div className="hotelImgWrapper" key={idx}>
+                  <img onClick={() => handleOpen(idx)} src={photo} alt="" />
+                </div>
+              ))}
+            </div>
+            <div className="hotelDetails">
+              <div className="hotelDetailsTexts">
+                <h1 className="hotelTitle">{data.title}</h1>
+                <p className="hotelDesc">{data.desc}</p>
+              </div>
+              <div className="hotelDetailsPrice">
+                <h1>Perfect for a 9-nightstay!</h1>
+                <span>
+                  Located in the real heart of Krakow, this property has an
+                  excellent location score of 9.8!
+                </span>
+                <h2>
+                  <b>$945</b> (9 nights)
+                </h2>
+                <button>Reserve or Book Now!</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <MailList />
       <Footer />
     </div>

@@ -1,42 +1,53 @@
+import useFetch from "../../hooks/useFetch";
 import "./Featured.css";
 const Featured = () => {
+  const { data, loading, error } = useFetch(
+    "hotels/countByCity?cities=Karachi,Lahore,Multan"
+  );
+
   return (
     <div className="featured">
-      <div className="featuredItem">
-        <img
-          src="https://picsum.photos/seed/random1/1000"
-          alt=""
-          className="featuredImg"
-        />
-        <div className="featuredTitles">
-          <h1>Dublin</h1>
-          <h2>123 Properties</h2>
-        </div>
-      </div>
-      <div className="featuredItem">
-        <img
-          src="https://picsum.photos/seed/random2/1000"
-          alt=""
-          className="featuredImg"
-        />
+      {loading ? (
+        "Loading please wait"
+      ) : (
+        <>
+          <div className="featuredItem">
+            <img
+              src="https://picsum.photos/seed/random1/1000"
+              alt=""
+              className="featuredImg"
+            />
+            <div className="featuredTitles">
+              <h1>Karachi</h1>
+              <h2>{data[0]} Properties</h2>
+            </div>
+          </div>
+          <div className="featuredItem">
+            <img
+              src="https://picsum.photos/seed/random2/1000"
+              alt=""
+              className="featuredImg"
+            />
 
-        <div className="featuredTitles">
-          <h1>Ronin</h1>
-          <h2>143 Properties</h2>
-        </div>
-      </div>
-      <div className="featuredItem">
-        <img
-          src="https://picsum.photos/seed/random3/1000"
-          alt=""
-          className="featuredImg"
-        />
+            <div className="featuredTitles">
+              <h1>Lahore</h1>
+              <h2>{data[1]} Properties</h2>
+            </div>
+          </div>
+          <div className="featuredItem">
+            <img
+              src="https://picsum.photos/seed/random3/1000"
+              alt=""
+              className="featuredImg"
+            />
 
-        <div className="featuredTitles">
-          <h1>Austin</h1>
-          <h2>653 Properties</h2>
-        </div>
-      </div>
+            <div className="featuredTitles">
+              <h1>Multan</h1>
+              <h2>{data[2]} Properties</h2>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

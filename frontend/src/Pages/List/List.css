@@ -94,7 +94,7 @@
 
 .listSearch > button {
   padding: 12px;
-  background-color: #0071c2;
+  /* background-color: #0071c2; */
   color: white;
   border: none;
   border-radius: 6px;
@@ -126,6 +126,7 @@
   border-radius: 6px;
   cursor: pointer;
   align-self: flex-start;
+  margin-left: 10px;
 }
 
 /* Close (×) button inside sidebar */

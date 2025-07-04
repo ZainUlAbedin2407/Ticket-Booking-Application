@@ -23,8 +23,11 @@
 
 }
 
-.featuredItem:hover .featuredImg {
+.featuredItem:hover{
   transform: scale(1.05);
+  transition: all;
+  transition-duration: .5s;
+  cursor: pointer;
 }
 
 
@@ -34,11 +37,6 @@
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease;
-}
-
-.featuredImg:hover {
-  transform: scale(1.05);
-  /* subtle zoom on hover */
 }
 
 .featuredTitles {
