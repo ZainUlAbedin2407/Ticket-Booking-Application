@@ -3,10 +3,13 @@ import "./Reserve.css";
 import useFetch from "../../hooks/useFetch";
 import { useContext, useState } from "react";
 import { SearchContext } from "../../context/SearchContext.js";
+import axiosInstance from "../../utils/axiosInstance.js";
+import { useNavigate } from "react-router-dom";
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const { data, loading, error } = useFetch(`hotels/room/${hotelId}`);
   const { dates } = useContext(SearchContext);
+  const navigate = useNavigate();
 
   const getDatesRange = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -15,15 +18,24 @@ const Reserve = ({ setOpen, hotelId }) => {
 
     const dates = [];
 
-    while (data <= end) {
-      dates.push(new Date(date).getTime());
+    while (date <= end) {
+      dates.push(date.toISOString().split("T")[0]); // YYYY-MM-DD
       date.setDate(date.getDate() + 1);
     }
 
     return dates;
   };
 
-  console.log(getDatesRange(dates[0].startDate, dates[0].endDate));
+  const allDates = getDatesRange(dates[0].startDate, dates[0].endDate);
+
+  const isAvailable = (roomNumber) => {
+    const isFound = roomNumber.unavailableDates.some((date) =>
+      allDates.includes(new Date(date).toISOString().split("T")[0])
+    );
+
+    return !isFound;
+  };
+
   const handleSelect = (e) => {
     const checked = e.target.checked;
     const value = e.target.value;
@@ -34,7 +46,20 @@ const Reserve = ({ setOpen, hotelId }) => {
     );
   };
 
-  const handleClick = () => {};
+  const handleClick = async () => {
+    try {
+      await Promise.all(
+        selectedRooms.map((roomId) => {
+          const res = axiosInstance.put(`/rooms/availability/${roomId}`, {
+            dates: allDates,
+          });
+          return res.data;
+        })
+      );
+      setOpen(false);
+      navigate("/");
+    } catch (error) {}
+  };
 
   // console.log(selectedRooms);
   return (
@@ -59,14 +84,15 @@ const Reserve = ({ setOpen, hotelId }) => {
                   type="checkbox"
                   value={roomNumber._id}
                   onChange={handleSelect}
+                  disabled={!isAvailable(roomNumber)}
                 />
               </div>
             ))}
-            <button className="rButton" onClick={handleClick}>
-              Reserve Now!
-            </button>
           </div>
         ))}
+        <button className="rButton" onClick={handleClick}>
+          Reserve Now!
+        </button>
       </div>
     </div>
   );
