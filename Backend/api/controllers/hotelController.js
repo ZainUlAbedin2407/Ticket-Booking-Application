@@ -66,7 +66,7 @@ export const getAllHotel = async (req, res, next) => {
 
   const minPrice = parseInt(min) || 1;
   const maxPrice = parseInt(max) || 9999999;
-  const limitNum = parseInt(limit) || 4;
+  const limitNum = parseInt(limit);
 
   const obj = { ...others };
   const cheapestPrice = { $gt: minPrice, $lt: maxPrice };

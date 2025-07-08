@@ -2,7 +2,7 @@ import user from "../models/User.js";
 
 export const updateUser = async (req, res, next) => {
   try {
-    const updatedUser = awaitUser.findByIdAndUpdate(
+    const updatedUser = await user.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
       { new: true }
